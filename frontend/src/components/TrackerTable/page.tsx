@@ -27,11 +27,7 @@ export default function TrackerTable() {
     const [tasks, setTasks] = React.useState([
         {
             id: 1,
-            title: "Gym"
-        },
-        {
-            id: 2,
-            title: "Study"
+            title: "Demo Task"
         },
     ]);
 
