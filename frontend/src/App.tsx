@@ -4,6 +4,7 @@
 // import RegisterPage from './components/Register/page'
 
 import "./App.css"
+import AnalyticalDash from "./components/Analytical Dashboard/page"
 import TrackerTable from './components/TrackerTable/page'
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
     // </Routes>
 
     <div>
-      <TrackerTable />
+      {/* <TrackerTable /> */}
+      <AnalyticalDash />
     </div>
   )
 }
