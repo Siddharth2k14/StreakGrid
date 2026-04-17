@@ -52,11 +52,8 @@ export default function AnalyticalDash({ days }: AnalyticalDashProps) {
                 <MenuItem onClick={() => selectFun("HeatMap")}>
                     HeatMap
                 </MenuItem>
-                <MenuItem onClick={() => selectFun("Pie Chart")}>
-                    Pie Chart
-                </MenuItem>
-                <MenuItem onClick={() => selectFun("Consistency Trend")}>
-                    Consistency Trend
+                <MenuItem onClick={() => selectFun("Overview")}>
+                    Overview
                 </MenuItem>
             </Menu>
 
