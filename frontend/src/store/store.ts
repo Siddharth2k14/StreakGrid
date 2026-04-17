@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import tasksReducer from "./slices/tasksSlice";
 import entriesReducer from "./slices/entriesSlice";
+import authReducer from "./slices/authSlice";
 import type { TaskState, EntriesState } from "../types/tracker.types";
 
 type PersistedState = {
@@ -27,6 +28,7 @@ export const store = configureStore({
   reducer: {
     tasks: tasksReducer,
     entries: entriesReducer,
+    auth: authReducer,
   },
 
   ...(preloadedState ? { preloadedState } : {}),

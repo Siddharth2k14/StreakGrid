@@ -1,118 +1,119 @@
 import { Box, Button, Card, CardContent, FormControl, FormLabel, Input, Link, Typography } from "@mui/material";
 import React from "react";
 import styles from "../../styles/Register/register.module.css";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { registerUser } from "../../store/slices/authSlice";
+import { selectAuthLoading, selectAuthError } from "../../store/selectors/authSelectors";
+
+const labelSx = { color: "#ccc", fontWeight: 600, mb: "4px", mt: "8px", fontSize: 13 };
 
 export default function RegisterPage() {
-    const [user, setUser] = React.useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
-    });
+    const [user, setUser] = React.useState({ name: "", email: "", password: "", confirmPassword: "" });
 
-    const [error, setError] = React.useState("");
+    const dispatch = useAppDispatch();
+    const loading = useAppSelector(selectAuthLoading);
+    const serverError = useAppSelector(selectAuthError);
+    const [localError, setLocalError] = React.useState("");
+
+    const error = localError || serverError;
 
     const handleRegister = () => {
-        // 🔴 Empty field validation
         if (!user.name || !user.email || !user.password || !user.confirmPassword) {
-            setError("All fields are required");
+            setLocalError("All fields are required");
             return;
         }
-
-        // 🔴 Password match validation
         if (user.password !== user.confirmPassword) {
-            setError("Passwords do not match");
+            setLocalError("Passwords do not match");
             return;
         }
-
-        // ✅ Clear error
-        setError("");
-
-        console.log("User Data:", user);
-
-        // 👉 Call API here
+        setLocalError("");
+        dispatch(registerUser({ name: user.name, email: user.email, password: user.password }));
     };
 
     return (
         <Box className={styles["main-box"]}>
             <Card className={styles["main-card"]}>
-                <CardContent>
-                    <FormControl>
+                <CardContent sx={{ p: 3 }}>
+                    <Typography variant="h5" sx={{ color: "white", fontWeight: 700, mb: 3, textAlign: "center" }}>
+                        Create account
+                    </Typography>
 
-                        <FormLabel sx={labelStyle}>Name</FormLabel>
+                    <FormControl fullWidth>
+                        <FormLabel sx={labelSx}>Name</FormLabel>
                         <Input
                             type="text"
                             placeholder="Enter your name"
                             value={user.name}
                             onChange={(e) => setUser({ ...user, name: e.target.value })}
                             className={styles["input-field"]}
+                            fullWidth
                         />
 
-                        <FormLabel sx={labelStyle}>Email</FormLabel>
+                        <FormLabel sx={labelSx}>Email</FormLabel>
                         <Input
                             type="email"
                             placeholder="Enter your email"
                             value={user.email}
                             onChange={(e) => setUser({ ...user, email: e.target.value })}
                             className={styles["input-field"]}
+                            fullWidth
                         />
 
-                        <FormLabel sx={labelStyle}>Password</FormLabel>
+                        <FormLabel sx={labelSx}>Password</FormLabel>
                         <Input
                             type="password"
                             placeholder="Enter your password"
                             value={user.password}
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
                             className={styles["input-field"]}
+                            fullWidth
                         />
 
-                        <FormLabel sx={labelStyle}>Confirm Password</FormLabel>
+                        <FormLabel sx={labelSx}>Confirm Password</FormLabel>
                         <Input
                             type="password"
-                            placeholder="Enter your password again"
+                            placeholder="Confirm your password"
                             value={user.confirmPassword}
                             onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
                             className={styles["input-field"]}
+                            fullWidth
                         />
-
                     </FormControl>
 
-                    {/* 🔴 Error Message */}
                     {error && (
-                        <Typography sx={{ color: "red", mt: 1 }}>
+                        <Typography sx={{ color: "#f44336", mt: 1, fontSize: 13 }}>
                             {error}
                         </Typography>
                     )}
 
-                    <Button 
-                        className={styles.registerButton}
+                    <Button
+                        fullWidth
                         onClick={handleRegister}
+                        disabled={loading}
+                        sx={{
+                            mt: 3,
+                            py: 1.2,
+                            borderRadius: "8px",
+                            background: "linear-gradient(135deg, #7c6af7, #5b4fcf)",
+                            color: "white",
+                            fontWeight: 700,
+                            fontSize: 15,
+                            textTransform: "none",
+                            "&:hover": { background: "linear-gradient(135deg, #6a58e0, #4a3fbf)" },
+                            "&:disabled": { background: "#444", color: "#888" },
+                        }}
                     >
-                        Register
+                        {loading ? "Registering..." : "Register"}
                     </Button>
 
                     <Typography className={styles.text}>
-                        Already have an account
-                        <Link
-                            className={styles.link}
-                            sx={{ marginLeft: "4px" }}
-                            href="/auth/login"
-                        >
+                        Already have an account?
+                        <Link className={styles.link} sx={{ ml: "6px" }} href="/auth/login">
                             Login
                         </Link>
                     </Typography>
-
                 </CardContent>
             </Card>
         </Box>
     );
 }
-
-// ✅ Reusable style (cleaner code)
-const labelStyle = {
-    color: "black",
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: "2px",
-    marginLeft: "2px",
-};

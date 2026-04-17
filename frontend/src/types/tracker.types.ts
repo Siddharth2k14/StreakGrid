@@ -62,3 +62,38 @@ export interface ToggleEntryPayload {
   date: string;
   completed: boolean;
 }
+
+/**
+ * Represents the authenticated user.
+ */
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+}
+
+/**
+ * Redux state shape for the auth slice.
+ */
+export interface AuthState {
+  user: AuthUser | null;
+  loading: boolean;
+  error: string | null;
+}
+
+/**
+ * Payload for login.
+ */
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+/**
+ * Payload for register.
+ */
+export interface RegisterPayload {
+  name: string;
+  email: string;
+  password: string;
+}
