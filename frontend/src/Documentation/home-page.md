@@ -1,6 +1,6 @@
 # HomePage Documentation
 
-This code creates the **HomePage** component for the StreakGrid app. It shows a welcome heading, an animated background, and two cards for login and registration. 
+This code creates the **HomePage** component for the StreakHab app. It shows a welcome heading, an animated background, and two cards for login and registration. 
 
 ## Imports
 
@@ -99,7 +99,7 @@ export default function HomePage() {
                 className={styles.title}
                 sx={{ color: "white", fontWeight: 700, textAlign: "center" }}
             >
-                Welcome to StreakGrid
+                Welcome to StreakHab
             </Typography>
 ```
 
@@ -107,7 +107,7 @@ export default function HomePage() {
 - `variant="h3"` gives the text the style of a level-3 heading in Material UI. 
 - `className={styles.title}` applies additional CSS module styling from the stylesheet. 
 - The `sx` prop adds inline Material UI styles, making the text white, bold, and centered. 
-- The actual heading text shown to the user is **Welcome to StreakGrid**. 
+- The actual heading text shown to the user is **Welcome to StreakHab**. 
 
 ## Card group container
 
